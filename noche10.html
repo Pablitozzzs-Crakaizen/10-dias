@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Noche 10 - Te Amo ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -18,140 +18,283 @@
             align-items: center;
             background: url('f5.jpeg') no-repeat center center fixed;
             background-size: cover;
-            padding: 20px;
+            padding: 15px;
             overflow: hidden;
         }
 
         .overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
             z-index: 1;
         }
 
-        /* Botones superiores */
-        .btn-salir { position: fixed; top: 20px; right: 20px; z-index: 100; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); color: white; text-decoration: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.3); }
-        .btn-escucha { position: fixed; top: 20px; right: 100px; z-index: 100; background: #ff85a1; color: white; border: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; animation: palpitar 2s infinite; }
-        
+        /* Botonera Superior */
+        .header-btns { 
+            position: fixed; top: 15px; left: 0; right: 0; 
+            z-index: 100; display: flex; justify-content: center; gap: 8px; 
+            padding: 0 10px;
+        }
+        .btn-top { 
+            padding: 10px 12px; border-radius: 15px; font-size: 0.75rem; 
+            font-weight: 600; border: none; cursor: pointer; 
+            transition: 0.3s; white-space: nowrap;
+        }
+        .btn-salir { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); text-decoration: none; }
+        .btn-recuerdos { background: #6a5acd; color: white; }
+        .btn-escucha { background: #ff85a1; color: white; animation: palpitar 2s infinite; }
+
         @keyframes palpitar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        .container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 500px;
-            margin-top: 60px;
-            text-align: center;
-            animation: zoomIn 1.5s ease;
-        }
-
-        .carta-final {
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 40px 25px;
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            position: relative;
-        }
-
-        .carta-final::before {
-            content: '💖';
-            font-size: 2rem;
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border-radius: 50%;
-            padding: 5px;
-        }
-
-        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: #ff4d6d; margin-bottom: 20px; }
+        .container { position: relative; z-index: 10; width: 100%; max-width: 400px; margin-top: 75px; text-align: center; }
         
-        .mensaje {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            font-weight: 400;
-            margin-bottom: 30px;
+        .carta-final { 
+            background: rgba(255, 255, 255, 0.98); 
+            color: #333; 
+            padding: 35px 20px; 
+            border-radius: 30px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
         }
 
-        .firma {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            color: #ff85a1;
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ff4d6d; margin-bottom: 15px; }
+
+        #contador-box { background: #fff0f3; border: 2px dashed #ff85a1; border-radius: 20px; padding: 15px; margin: 20px 0; color: #ff4d6d; font-weight: 600; font-size: 0.9rem; }
+        #reloj-vivo { font-size: 1.1rem; display: block; margin-top: 5px; color: #ff85a1; }
+
+        /* MODAL RECUERDOS - GLASS PLAYER STYLE */
+        #modal-recuerdos {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2000; display: none; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
         }
 
-        .btn-sorpresa {
-            background: #ff4d6d;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-top: 20px;
-            cursor: pointer;
+        .player-container {
+            width: 90%; max-width: 360px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 45px;
+            padding: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; gap: 20px;
+            touch-action: none;
+        }
+
+        .carousel-v {
+            width: 100%; aspect-ratio: 1 / 1;
+            position: relative; border-radius: 30px;
+            overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .carousel-v img {
+            width: 100%; height: 100%; object-fit: cover;
+            position: absolute; opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: scale(1.05);
+        }
+
+        .img-active { opacity: 1 !important; transform: scale(1) !important; }
+
+        .info-musica { text-align: left; padding: 0 10px; color: white; }
+        .info-musica h2 { font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
+        .info-musica p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+
+        .progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: 15px 0; }
+        #progress-bar { height: 100%; background: #fff; border-radius: 2px; width: 0%; transition: width 0.3s; }
+
+        .player-controls { display: flex; justify-content: center; gap: 30px; font-size: 1.5rem; margin-top: 5px; }
+
+        /* Estilos de la Carta y otros */
+        #modal-escribir {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1000; display: none; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
+        }
+        .carta-input {
+            width: 85%; max-width: 380px; background: #fff9e6; 
+            padding: 30px; border-radius: 20px; position: relative;
+            transition: 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .carta-input textarea {
+            width: 100%; height: 130px; border: none; background: transparent;
+            font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #444;
+            outline: none; resize: none;
+        }
+        .carta-vuela { transform: translateY(-120%) rotate(10deg); opacity: 0; }
+
+        #texto-magico {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+            font-family: 'Dancing Script', cursive; font-size: 5rem; color: #ff4d6d;
+            text-shadow: 0 0 20px #fff, 0 0 40px rgba(255,77,109,0.5);
+            z-index: 3000; opacity: 0; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none; width: 100%; text-align: center;
+        }
+        #texto-magico.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+
+        .btn-principal {
+            background: #ff4d6d; color: white; border: none; padding: 15px 40px;
+            border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
             box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
         }
-
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
     </style>
 </head>
 <body>
 
     <div class="overlay"></div>
-    
-    <a href="index.html" class="btn-salir">cerrar 💗</a>
-    <button class="btn-escucha" onclick="reproducirVoz()">ESCUCHA 💗🥺</button>
-    <audio id="miVoz" src="audios/voz10.mp3"></audio>
+    <div id="texto-magico">TE AMO 💗</div>
 
-    <div class="container">
+    <div class="header-btns">
+        <button class="btn-top btn-escucha" onclick="reproducirVoz()">ESCUCHA 💗</button>
+        <button class="btn-top btn-recuerdos" onclick="abrirRecuerdos()">RECUERDOS 📸</button>
+        <button class="btn-top" style="background: #ff4d6d; color:white;" onclick="abrirEscritura()">MENSAJE 💌</button>
+        <a href="index.html" class="btn-top btn-salir">SALIR</a>
+    </div>
+
+    <audio id="miVoz" src="audios/voz10.mp3"></audio>
+    <audio id="audioReproductor"></audio>
+
+    <div class="container" id="main-content">
         <div class="carta-final">
-            <h1>DIA 10 AMORSHITA 💗🥺</h1>
-            <div class="mensaje">
-                <p>Amorshita preciosa, llegamos al final de este pequeño calendario, pero es solo el comienzo de todo lo que nos falta vivir.</p>
-                <br>
-                <p>Gracias por estos 217 días llenos de risas, de apoyo y de tanto amor. Eres lo mejor que me ha pasado y mi regalo más grande eres tú cada día.</p>
-                <br>
-                <p>Te amo con todo mi corazón, hoy, mañana y siempre 💗🥺.</p>
-            </div>
-            <div class="firma">Tu amorshito 💗</div>
+            <h1>DÍA 10 MI REINA 💗</h1>
+            <p>Amorshita preciosa, llegamos al final de este calendario, pero es solo el inicio de nuestra historia.</p>
             
-            <button class="btn-sorpresa" onclick="lanzarConfeti()">¡Te Amo! 💖</button>
+            <div id="contador-box">
+                <span id="num-dias">Gracias por estos 217 días,</span>
+                <span id="reloj-vivo">00h : 00m : 00s</span>
+            </div>
+
+            <p>Eres lo mejor que me ha pasado. Te amo hoy, mañana y siempre.</p>
+            <div style="font-family:'Dancing Script'; font-size: 1.8rem; color:#ff85a1; margin: 15px 0;">Tu amorshito 💗</div>
+            
+            <button class="btn-principal" onclick="superEfecto()">¡Te Amo! 💗🥺</button>
         </div>
     </div>
 
+    <div id="modal-recuerdos">
+        <div class="player-container" id="swipe-area">
+            <div class="carousel-v">
+                <img src="f1.jpeg" class="img-active">
+                <img src="f2.jpeg">
+                <img src="f3.jpeg">
+                <img src="f4.jpeg">
+                <img src="f5.jpeg">
+            </div>
+            
+            <div class="info-musica">
+                <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Recuerdos de Nosotros</p>
+                <h2 id="track-name">Misterio de Amor</h2>
+                <p>Nuestra Historia 👩‍❤️‍👨</p>
+                
+                <div class="progress-container">
+                    <div id="progress-bar"></div>
+                </div>
+                
+                <div class="player-controls">
+                    <span style="opacity: 0.5;">⏮</span>
+                    <span>⏸</span>
+                    <span style="opacity: 0.5;">⏭</span>
+                </div>
+                <p style="font-size: 0.65rem; text-align: center; margin-top: 15px; opacity: 0.5;">Desliza arriba para ver más</p>
+            </div>
+        </div>
+        
+        <button onclick="cerrarRecuerdos()" style="margin-top: 30px; background: none; border: none; color: #fff; font-size: 0.9rem; text-decoration: underline; opacity: 0.7; cursor: pointer;">CERRAR RECUERDOS</button>
+    </div>
+
+    <div id="modal-escribir">
+        <div class="carta-input" id="carta-animada">
+            <h3 style="font-family:'Dancing Script'; color:#ff4d6d; margin-bottom:10px;">Para mi amorshito...</h3>
+            <textarea id="texto-carta" placeholder="Escribe tu mensajito aquí..."></textarea>
+            <button onclick="enviarCarta()" style="width:100%; background:#ff4d6d; color:white; border:none; padding:12px; border-radius:12px; font-weight:600;">ENVIAR A WHATSAPP 💌</button>
+        </div>
+        <button class="btn-cerrar-m" onclick="document.getElementById('modal-escribir').style.display='none'" style="position: static; margin-top: 20px; width: auto; padding: 10px 20px; border-radius: 20px;">CANCELAR</button>
+    </div>
+
     <script>
-        // Función de confeti
-        function lanzarConfeti() {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#ff4d6d', '#ff85a1', '#ffb3c1', '#ffffff']
-            });
+        const MI_WHATSAPP = "51923096462";
+
+        // Contador
+        const fechaInicio = new Date("2025-09-04T00:00:00-05:00"); 
+        function actualizarContador() {
+            const ahora = new Date();
+            const diff = ahora - fechaInicio;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / 1000 / 60) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+            document.getElementById('num-dias').innerText = `Gracias por estos ${d} días,`;
+            document.getElementById('reloj-vivo').innerText = `${h.toString().padStart(2,'0')}h : ${m.toString().padStart(2,'0')}m : ${s.toString().padStart(2,'0')}s de puro amor.`;
+        }
+        setInterval(actualizarContador, 1000);
+
+        // Swipe y Música
+        let idx = 0;
+        const imgs = document.querySelectorAll('.carousel-v img');
+        const playlist = ["musicas/m1.mp3", "musicas/m2.mp3", "musicas/m3.mp3", "musicas/m4.mp3", "musicas/m5.mp3"];
+        const titulos = ["Solo Contigo 🥺💗", "Hasta Que La Muerte Nos Separe 💗🥺", "El Mejor Día 💗", "Recuerdo Especial💗", "Para Siempre💗"];
+        const player = document.getElementById('audioReproductor');
+        const progressBar = document.getElementById('progress-bar');
+
+        function updateSlide(n) {
+            imgs.forEach((img, i) => img.className = i === n ? 'img-active' : '');
+            document.getElementById('track-name').innerText = titulos[n];
+            player.src = playlist[n];
+            player.play();
+            idx = n;
         }
 
-        // Lanzar automáticamente al cargar
-        window.onload = function() {
-            setTimeout(lanzarConfeti, 500);
+        // Actualizar barra de progreso
+        player.ontimeupdate = () => {
+            const pct = (player.currentTime / player.duration) * 100;
+            progressBar.style.width = pct + "%";
         };
+
+        let startY = 0;
+        document.getElementById('swipe-area').addEventListener('touchstart', e => startY = e.touches[0].clientY);
+        document.getElementById('swipe-area').addEventListener('touchend', e => {
+            const endY = e.changedTouches[0].clientY;
+            if (startY - endY > 50 && idx < imgs.length - 1) updateSlide(idx + 1);
+            if (endY - startY > 50 && idx > 0) updateSlide(idx - 1);
+        });
+
+        function abrirRecuerdos() { document.getElementById('modal-recuerdos').style.display = 'flex'; updateSlide(0); }
+        function cerrarRecuerdos() { document.getElementById('modal-recuerdos').style.display = 'none'; player.pause(); }
+
+        // Envío de Carta
+        function abrirEscritura() { document.getElementById('modal-escribir').style.display = 'flex'; }
+        function enviarCarta() {
+            const msg = document.getElementById('texto-carta').value;
+            if(!msg) return;
+            document.getElementById('carta-animada').classList.add('carta-vuela');
+            setTimeout(() => {
+                window.open(`https://wa.me/${MI_WHATSAPP}?text=${encodeURIComponent("💌 Mi mensaje: " + msg)}`, '_blank');
+                location.reload();
+            }, 1000);
+        }
+
+        // Efecto TE AMO
+        function superEfecto() {
+            const txt = document.getElementById('texto-magico');
+            txt.classList.add('show');
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+              confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d', '#ffffff'], shapes: ['heart'] });
+              confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d6d', '#ffffff'], shapes: ['heart'] });
+              if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+
+            setTimeout(() => txt.classList.remove('show'), 3000);
+        }
 
         function reproducirVoz() {
             const audio = document.getElementById('miVoz');
-            const btn = document.querySelector('.btn-escucha');
-            if (audio.paused) {
-                audio.play();
-                btn.innerHTML = "PAUSAR ⏸";
-            } else {
-                audio.pause();
-                btn.innerHTML = "ESCUCHA 💗🥺";
-            }
+            audio.paused ? audio.play() : audio.pause();
         }
     </script>
 </body>
