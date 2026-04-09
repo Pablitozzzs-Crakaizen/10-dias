@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noche 1 - Inicio de nuestro viaje 🌙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('f1.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .btn-salir {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+        }
+
+        .btn-escucha {
+            position: fixed;
+            top: 20px;
+            right: 100px;
+            z-index: 100;
+            background: #ff85a1;
+            backdrop-filter: blur(5px);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 10px rgba(255, 133, 161, 0.3);
+            cursor: pointer;
+            animation: palpitar 2s infinite;
+        }
+
+        @keyframes palpitar {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .carta {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: slideUp 1s ease;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff85a1;
+            margin-bottom: 20px;
+        }
+
+        .mensaje {
+            line-height: 1.6;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .firma {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ff85a1;
+        }
+
+        .decoracion {
+            font-size: 2rem;
+            margin-top: 15px;
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    
+    <a href="index.html" class="btn-salir">Salir ×</a>
+    <button class="btn-escucha" onclick="reproducirVoz()">ESCUCHA 💗🥺</button>
+    <audio id="miVoz" src="audios/voz1.mp3"></audio>
+
+    <div class="carta">
+        <h1>¡Hola Amorshita! ✨</h1>
+        
+        <div class="mensaje">
+            <p>Bienvenida a tu calendario de buenas noches. JIJI ayy reina lo hize por que aveshes no podre decirte buenas noches Chi 🌙</p>
+            <br>
+            <p>He creado esto para recordarte, antes de que cierres tus ojitos, lo especial que eres para mí. Esta es solo la primera de 10 sorpresas que tengo preparadas.</p>
+            <br>
+            <p>Descansa mushito, sueña conmigo y recuerda que siempre estoy pensando en ti. Mañana nos espera un día genial. ❤️</p>
+        </div>
+
+        <p class="firma">Te amo, mi vida.</p>
+        <span class="decoracion">☁️⭐🌙</span>
+    </div>
+
+    <script>
+        function reproducirVoz() {
+            const audio = document.getElementById('miVoz');
+            const boton = document.querySelector('.btn-escucha');
+            if (audio.paused) {
+                audio.play();
+                boton.innerHTML = "PAUSAR ⏸";
+            } else {
+                audio.pause();
+                boton.innerHTML = "ESCUCHA 💗🥺";
+            }
+        }
+    </script>
+</body>
+</html>

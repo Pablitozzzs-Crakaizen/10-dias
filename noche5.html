@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noche 5 - Bajo las estrellas 🌌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Usamos f5.jpeg para el fondo */
+            background: url('f5.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 25, 0.8); /* Tono más azulado/oscuro */
+            z-index: 1;
+        }
+
+        /* Botones superiores */
+        .btn-salir { position: fixed; top: 20px; right: 20px; z-index: 100; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); color: white; text-decoration: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-escucha { position: fixed; top: 20px; right: 100px; z-index: 100; background: #ff85a1; color: white; border: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; animation: palpitar 2s infinite; }
+        
+        @keyframes palpitar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 450px;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #ff85a1;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(255, 133, 161, 0.7);
+        }
+
+        /* El Poema */
+        .poema {
+            font-size: 1.2rem;
+            line-height: 2;
+            font-weight: 300;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Palabras mágicas ocultas */
+        .magia {
+            color: transparent;
+            border-bottom: 2px dashed rgba(255, 133, 161, 0.5);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            display: inline-block;
+            padding: 0 5px;
+        }
+
+        /* Cuando ella las toca */
+        .magia:active, .magia.revelada {
+            color: #ff85a1;
+            text-shadow: 0 0 10px #ff85a1, 0 0 20px #fff;
+            border-bottom: 2px solid transparent;
+            transform: scale(1.1);
+        }
+
+        .instruccion {
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    
+    <a href="index.html" class="btn-salir">Salir ×</a>
+    <button class="btn-escucha" onclick="reproducirVoz()">ESCUCHA 💗🥺</button>
+    <audio id="miVoz" src="audios/voz5.mp3"></audio>
+
+    <div class="container">
+        <h1>Noche de Poesía ✨</h1>
+        <p class="instruccion">(Toca las palabras subrayadas para brillar)</p>
+
+        <div class="poema">
+            Si tuviera que elegir una <span class="magia" onclick="revelar(this)">estrella</span>,<br>
+            sería esa que ilumina tu <span class="magia" onclick="revelar(this)">sonrisa</span>.<br>
+            Porque en este mundo con tanta <span class="magia" onclick="revelar(this)">prisa</span>,<br>
+            tú eres mi calma más <span class="magia" onclick="revelar(this)">bella</span>.<br>
+            <br>
+            No importa la <span class="magia" onclick="revelar(this)">distancia</span> ni el lugar,<br>
+            siempre te encuentro al <span class="magia" onclick="revelar(this)">soñar</span>.
+        </div>
+
+        <p style="margin-top: 40px; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #ff85a1;">
+            Descansa amorshita... ❤️
+        </p>
+    </div>
+
+    <script>
+        // Función para revelar las palabras
+        function revelar(elemento) {
+            elemento.classList.add('revelada');
+        }
+
+        function reproducirVoz() {
+            const audio = document.getElementById('miVoz');
+            const btn = document.querySelector('.btn-escucha');
+            if (audio.paused) {
+                audio.play();
+                btn.innerHTML = "PAUSAR ⏸";
+            } else {
+                audio.pause();
+                btn.innerHTML = "ESCUCHA 💗🥺";
+            }
+        }
+    </script>
+</body>
+</html>

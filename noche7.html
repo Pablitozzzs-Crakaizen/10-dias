@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noche 7 - 7 Razones ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: url('f2.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1;
+        }
+
+        /* Botones superiores */
+        .btn-salir { position: fixed; top: 20px; right: 20px; z-index: 100; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); color: white; text-decoration: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.3); }
+        .btn-escucha { position: fixed; top: 20px; right: 100px; z-index: 100; background: #ff85a1; color: white; border: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; animation: palpitar 2s infinite; }
+        
+        @keyframes palpitar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 450px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #ff85a1; margin-bottom: 10px; }
+        .intro { font-size: 0.9rem; margin-bottom: 30px; opacity: 0.8; font-weight: 300; }
+
+        /* Lista de Razones */
+        .lista-razones {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .razon-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .razon-card span {
+            background: #ff85a1;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .razon-texto {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            display: none; /* Oculto inicialmente */
+        }
+
+        .revelada {
+            background: rgba(255, 133, 161, 0.2);
+            border: 1px solid #ff85a1;
+        }
+
+        .revelada .razon-texto {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .placeholder {
+            font-style: italic;
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    
+    <a href="index.html" class="btn-salir">Salir ×</a>
+    <button class="btn-escucha" onclick="reproducirVoz()">ESCUCHA 💗🥺</button>
+    <audio id="miVoz" src="audios/voz7.mp3"></audio>
+
+    <div class="container">
+        <h1>7 meses, 7 razones ✨</h1>
+        <p class="intro">Toca cada número para descubrir por qué te amo...</p>
+        
+        <div class="lista-razones">
+            <div class="razon-card" onclick="revelar(this)">
+                <span>1</span>
+                <p class="placeholder">Toca para leer...</p>
+                <p class="razon-texto">Por la forma en que me haces reír incluso cuando tengo un mal día.</p>
+            </div>
+
+            <div class="razon-card" onclick="revelar(this)">
+                <span>2</span>
+                <p class="placeholder">Toca para leer...</p>
+                <p class="razon-texto">Porque eres mi mayor apoyo en cada proyecto que inicio.</p>
+            </div>
+
+            <div class="razon-card" onclick="revelar(this)">
+                <span>3</span>
+                <p class="placeholder">Toca para leer...</p>
+                <p class="razon-texto">Por esos ojitos hermosos que me iluminan cada vez que te veo.</p>
+            </div>
+
+            <div class="razon-card" onclick="revelar(this)">
+                <span>4</span>
+                <p class="placeholder">Toca para leer...</p>
+                <p class="razon-texto">Porque con un "buenas noches" tuyo, duermo mucho mejor.</p>
+            </div>
+
+            <div class="razon-card" onclick="revelar(this)">
+                <span>5</span>
+                <p class="placeholder">Toca para leer...</p>
+                <p class="razon-texto">Por tu paciencia y por entenderme como nadie más lo hace.</p>
+            </div>
+
+            <div class="razon-card" onclick="revelar(this)">
+                <span>6</span>
+                <p class="placeholder">Toca para leer...</p>
+                <p class="razon-texto">Porque haces que cada momento, por simple que sea, sea especial.</p>
+            </div>
+
+            <div class="razon-card" onclick="revelar(this)">
+                <span>7</span>
+                <p class="placeholder">Toca para leer...</p>
+                <p class="razon-texto">Simplemente porque eres tú, y no te cambiaría por nada del mundo.</p>
+            </div>
+        </div>
+
+        <p style="margin: 40px 0; font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #ff85a1;">Eres mi mejor regalo. 💗</p>
+    </div>
+
+    <script>
+        function revelar(card) {
+            card.classList.toggle('revelada');
+            const placeholder = card.querySelector('.placeholder');
+            if(placeholder) placeholder.style.display = 'none';
+        }
+
+        function reproducirVoz() {
+            const audio = document.getElementById('miVoz');
+            const btn = document.querySelector('.btn-escucha');
+            if (audio.paused) {
+                audio.play();
+                btn.innerHTML = "PAUSAR ⏸";
+            } else {
+                audio.pause();
+                btn.innerHTML = "ESCUCHA 💗🥺";
+            }
+        }
+    </script>
+</body>
+</html>

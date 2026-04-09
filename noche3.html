@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noche 3 - Tus Cupones 🎫</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            min-height: 100vh;
+            background: url('f3.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 20px;
+        }
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1; }
+        
+        /* Botones superiores */
+        .btn-salir { position: fixed; top: 20px; right: 20px; z-index: 100; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); color: white; text-decoration: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.3); }
+        .btn-escucha { position: fixed; top: 20px; right: 100px; z-index: 100; background: #ff85a1; color: white; border: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; animation: palpitar 2s infinite; }
+        
+        .container { position: relative; z-index: 10; width: 100%; max-width: 400px; margin-top: 60px; text-align: center; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #ff85a1; margin-bottom: 20px; }
+
+        /* Estilo de los Cupones */
+        .cupon {
+            background: white;
+            color: #333;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-left: 8px dashed #ff85a1;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        .cupon-izq { background: #ff85a1; color: white; padding: 20px; display: flex; align-items: center; font-size: 1.5rem; }
+        .cupon-der { padding: 15px; text-align: left; flex-grow: 1; }
+        .cupon-der h3 { font-size: 1rem; color: #ff4d6d; }
+        .cupon-der p { color: #666; font-size: 0.8rem; margin-top: 5px; }
+
+        @keyframes palpitar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <a href="index.html" class="btn-salir">Salir ×</a>
+    <button class="btn-escucha" onclick="reproducirVoz()">ESCUCHA 💗🥺</button>
+    <audio id="miVoz" src="voz3.mp3"></audio> <div class="container">
+        <h1>Vales por Amor ✨</h1>
+        <p style="margin-bottom: 20px;">Cualquiera de estos es canjeable cuando quieras.</p>
+
+        <div class="cupon">
+            <div class="cupon-izq">😘</div>
+            <div class="cupon-der">
+                <h3>Vale por un Beshitooooooo 💗🥺</h3>
+                <p>Válido para una salida por tu sabor favorito.</p>
+            </div>
+        </div>
+
+        <div class="cupon" style="animation-delay: 0.2s;">
+            <div class="cupon-izq">💗</div>
+            <div class="cupon-der">
+                <h3>Vale por mucho tiempo juntos jiji ayy reina te daria todo lo que quieras</h3>
+                <p>Tú eliges lo que desees yo siempre hare lo posible.</p>
+            </div>
+        </div>
+
+        <div class="cupon" style="animation-delay: 0.4s;">
+            <div class="cupon-izq">💖</div>
+            <div class="cupon-der">
+                <h3>Vale por un Abrazo Infinito</h3>
+                <p>Este no tiene fecha de vencimiento.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function reproducirVoz() {
+            const audio = document.getElementById('miVoz');
+            const btn = document.querySelector('.btn-escucha');
+            if (audio.paused) {
+                audio.play();
+                btn.innerHTML = "PAUSAR ⏸";
+            } else {
+                audio.pause();
+                btn.innerHTML = "ESCUCHA 💗🥺";
+            }
+        }
+    </script>
+</body>
+</html>

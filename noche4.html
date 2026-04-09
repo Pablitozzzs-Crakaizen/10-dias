@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noche 4 - Nuestros Momentos ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Usamos f4.jpeg para el fondo de esta noche */
+            background: url('f4.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+            overflow-x: hidden; /* Evita scroll horizontal raro */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        /* Botones superiores */
+        .btn-salir { position: fixed; top: 20px; right: 20px; z-index: 100; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); color: white; text-decoration: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.3); }
+        .btn-escucha { position: fixed; top: 20px; right: 100px; z-index: 100; background: #ff85a1; color: white; border: none; padding: 8px 15px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; font-family: 'Poppins', sans-serif; animation: palpitar 2s infinite; cursor: pointer;}
+        
+        @keyframes palpitar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        /* Contenedor principal */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            color: #ff85a1;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+        }
+
+        p.subtitulo {
+            font-size: 0.9rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            animation: fadeIn 1.5s ease;
+        }
+
+        /* Estilos de la Galería Tipo Collage */
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            perspective: 1000px; /* Efecto 3D */
+        }
+
+        .foto-card {
+            width: 80%;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .foto-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            display: block;
+        }
+
+        /* Rotaciones iniciales aleatorias para efecto collage */
+        .foto-card:nth-child(1) { transform: rotate(-5deg) translateY(10px); animation: fadeInLeft 1s ease; }
+        .foto-card:nth-child(2) { transform: rotate(3deg) translateY(-10px); animation: fadeInRight 1.2s ease; }
+        .foto-card:nth-child(3) { transform: rotate(-2deg) translateY(5px); animation: fadeInLeft 1.4s ease; }
+
+        /* Efecto al tocar la foto (Active para celu) */
+        .foto-card:active {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 50;
+            box-shadow: 0 15px 30px rgba(255, 133, 161, 0.5);
+        }
+
+        /* Pie de foto oculto por defecto */
+        .caption {
+            color: #333;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            font-style: italic;
+            display: none;
+            font-weight: 400;
+        }
+
+        /* Cuando la foto está "activa" (seccionada) mostramos el texto */
+        .foto-card:active .caption {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-50px) rotate(-10deg); } to { opacity: 1; transform: translateX(0) rotate(-5deg); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px) rotate(10deg); } to { opacity: 1; transform: translateX(0) rotate(3deg); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    
+    <a href="index.html" class="btn-salir">Salir ×</a>
+    <button class="btn-escucha" onclick="reproducirVoz()">ESCUCHA 💗🥺</button>
+    
+    <audio id="miVoz" src="audios/voz4.mp3"></audio> <div class="container">
+        <h1>Un Vistazo Atrás ✨</h1>
+        <p class="subtitulo">Toca una foto para ver el recuerdo...</p>
+
+        <div class="gallery">
+            <div class="foto-card">
+                <img src="f1.jpeg" alt="Recuerdo 1">
+                <p class="caption">"Cuando Nos quedabamos hasta noche 🥺... ¿te acuerdas?"</p>
+            </div>
+
+            <div class="foto-card">
+                <img src="f2.jpeg" alt="Recuerdo 2">
+                <p class="caption">"Ese dia recuerdo que me escape para verte reina JAJA ayy amorshita 🥺💗"</p>
+            </div>
+
+            <div class="foto-card">
+                <img src="f3.jpeg" alt="Recuerdo 3">
+                <p class="caption">"Siempre tratare de darte todo lo que tenga mi reina chi 💗🥺 ."</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 40px; font-size: 0.9rem; font-weight: 300;">Cada momento contigo es mi favorito. Descansa, amorshita. 🌙</p>
+    </div>
+
+    <script>
+        function reproducirVoz() {
+            const audio = document.getElementById('miVoz');
+            const btn = document.querySelector('.btn-escucha');
+            if (audio.paused) {
+                audio.play();
+                btn.innerHTML = "PAUSAR ⏸";
+            } else {
+                audio.pause();
+                btn.innerHTML = "ESCUCHA 💗🥺";
+            }
+        }
+    </script>
+</body>
+</html>

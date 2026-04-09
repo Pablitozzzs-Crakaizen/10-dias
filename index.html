@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Amorshita 💗</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 1s ease;
+        }
+
+        /* Capa oscura para que resalten los botones en el celu */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+            z-index: -1;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #ff85a1;
+            text-shadow: 0 0 10px rgba(255,133,161,0.5);
+            margin-bottom: 10px;
+        }
+
+        .sub {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        /* Grid optimizado para celulares */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil siempre */
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px; /* Ancho máximo de un celular */
+            margin-bottom: 50px;
+        }
+
+        .btn-dia {
+            aspect-ratio: 1/1;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-dia:active { /* Efecto al tocar en celular */
+            transform: scale(0.9);
+            background: rgba(255, 133, 161, 0.4);
+        }
+
+        .btn-dia.bloqueado {
+            background: rgba(40, 40, 40, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            filter: grayscale(1);
+        }
+
+        .corazon {
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        /* Mensaje final oculto */
+        #mensaje-final {
+            display: none;
+            background: rgba(255, 77, 109, 0.9);
+            padding: 25px;
+            margin: 20px;
+            border-radius: 20px;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            animation: bounceIn 1s;
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <header>
+        <h1>Para mi Vida 🌙</h1>
+        <p class="sub">Toca el día que corresponda</p>
+    </header>
+
+    <div class="grid-container" id="calendario"></div>
+
+    <div id="mensaje-final">
+        TE AMO MUSHITO CHI AMORSHITA ESPERO TE HAIGA GUSTADO CHI 🥺💗
+    </div>
+
+    <script>
+        const totalDias = 10;
+        const fotos = ['f1.jpeg', 'f2.jpeg', 'f3.jpeg', 'f4.jpeg', 'f5.jpeg'];
+        
+        // --- IMPORTANTE: Pon la fecha en que quieres que empiece el DÍA 1 ---
+        // (Año, Mes-1, Día) -> Abril es mes 3
+        const fechaInicio = new Date(2026, 3, 8); 
+
+        const contenedor = document.getElementById('calendario');
+        const msgFinal = document.getElementById('mensaje-final');
+        const ahora = new Date();
+
+        let diasDesbloqueados = 0;
+
+        // Poner una foto de fondo aleatoria de tus archivos f1...f5
+        document.body.style.backgroundImage = `url('${fotos[Math.floor(Math.random() * fotos.length)]}')`;
+
+        for (let i = 1; i <= totalDias; i++) {
+            const btn = document.createElement('div');
+            btn.className = 'btn-dia';
+            
+            // Lógica de fecha: cada día a las 10 PM
+            const fechaDeseada = new Date(fechaInicio);
+            fechaDeseada.setDate(fechaInicio.getDate() + (i - 1));
+            fechaDeseada.setHours(22, 0, 0, 0);
+
+            if (ahora >= fechaDeseada) {
+                diasDesbloqueados++;
+                btn.innerHTML = `<span class="corazon">💗</span> Día ${i}`;
+                btn.onclick = () => window.location.href = `noche${i}.html`;
+            } else {
+                btn.classList.add('bloqueado');
+                btn.innerHTML = `<span>🔒</span> Día ${i}`;
+                btn.onclick = () => alert("Todavía no es hora, mi amor. ¡Vuelve a las 10:00 PM! 🌙");
+            }
+            contenedor.appendChild(btn);
+        }
+
+        // Si ya pasaron los 10 días, mostrar el mensaje final
+        if (diasDesbloqueados === totalDias) {
+            msgFinal.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
